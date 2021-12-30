@@ -1,137 +1,130 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Modal } from './Modal';
+import { v4 as uuid } from 'uuid';
 
 const ModalWrapper = styled.div`
-    width: 500px;
-    height: 200px;
-    background: #FFF;
-    border-radius: 10px;
-    margin: auto;
-    top: 50%;
-`
+  width: 500px;
+  height: 200px;
+  background: #fff;
+  border-radius: 10px;
+  margin: auto;
+  top: 50%;
+`;
 const StyledForm = styled.div`
-    display: inline-block; 
-    justify-content: center;
-    align-items: center;
-    color: #A4A0A0;
-`
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  color: #a4a0a0;
+`;
 const StyledFormElements = styled.div`
-    display: flex; 
-    padding: 10px;
-
-`
+  display: flex;
+  padding: 10px;
+`;
 
 const StyledLabel = styled.label`
-    padding: 5px;
-`
+  padding: 5px;
+`;
 const StyledInput = styled.div`
-    display: flex;
-`
+  display: flex;
+`;
 
 const StyledBtnTask = styled.button`
-    padding: 10px;
-    border-radius: 7px;
-    background: #FF3F3F;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    width: 120px;
-    height: 30px;
-    justify-content: center;
-    align-items: center;
-    display: flex;
+  padding: 10px;
+  border-radius: 7px;
+  background: #ff3f3f;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  width: 120px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 
-   & hover: {
+  & hover: {
     opacity: 0.2;
-   }
-`
+  }
+`;
 const BtnText = styled.p`
-   font-size: 1rem;
-   justify-content: center;
-    align-items: center;
-    display: flex;
-    font-weight: 600;
-
-`
+  font-size: 1rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-weight: 600;
+`;
 const BtnImage = styled.img`
-   width: 15px;
-   height: 15px;
-   margin-left: 5px;
-   justify-content: center;
-    align-items: center;
-    display: flex;
+  width: 15px;
+  height: 15px;
+  margin-left: 5px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+`;
+function TodoForm({ onSubmit }) {
+  const [text, setText] = useState('');
+  const [category, setCategory] = useState('');
 
-`
-function TodoForm({props}) {
-    const [input, setInput] = useState('');
-    const [category, setCategory] = useState('');
-    
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-    const handleChange = (e) => {
-        const {name, value} = e.target
-
-        if(name == "input"){
-            setInput(value)
-        } else{
-            setCategory(value)
-        }
+    if (name === 'text') {
+      setText(value);
+    } else {
+      setCategory(value);
     }
+  };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-    
-        props.onSubmit({
-          id: Math.floor(Math.random() * 1000),
-          text: input, category
-        });
-        setInput('');
-        setCategory('');
-        console.log("handleSubmit");
-      };
+    onSubmit({
+      id: uuid(),
+      text: text,
+      category: category
+    });
+    setText('');
+    setCategory('');
+    console.log('handleSubmit');
+  };
 
-return (
+  return (
     <ModalWrapper>
-            <StyledForm onSubmit={handleSubmit}>
-                
-               <StyledFormElements> 
-                    <StyledLabel> Task </StyledLabel>
-                   <StyledInput>
-                       <input
-                        type='text'
-                        value={input}
-                        placeholder="What's your task?" 
-                        onChange={handleChange} 
-                        name="input"/> 
-                    </StyledInput>
-                </StyledFormElements>
+      <StyledForm onSubmit={handleSubmit}>
+        <StyledFormElements>
+          <StyledLabel> Task </StyledLabel>
+          <StyledInput>
+            <input
+              type="text"
+              value={text}
+              placeholder="What's your task?"
+              onChange={handleChange}
+              name="text"
+            />
+          </StyledInput>
+        </StyledFormElements>
 
-                <StyledFormElements> 
-                    <StyledLabel> Category </StyledLabel>
-                   <StyledInput>
-                       <input
-                        type='text'
-                        value={category}
-                        placeholder="Add a category for a task" 
-                        onChange={handleChange} 
-                        name="category"/> 
-                    </StyledInput>
-                </StyledFormElements>
+        <StyledFormElements>
+          <StyledLabel> Category </StyledLabel>
+          <StyledInput>
+            <input
+              type="text"
+              value={category}
+              placeholder="Add a category for a task"
+              onChange={handleChange}
+              name="category"
+            />
+          </StyledInput>
+        </StyledFormElements>
 
-                
-                <StyledFormElements> 
-                    <StyledBtnTask onClick={handleSubmit} type='submit'>
-                        <BtnText>New Task</BtnText>
-                        <BtnImage src={'./images/plus-vector.png'} alt="plus"/>
-                    
-                    </StyledBtnTask> 
-                </StyledFormElements>
-                
-            </StyledForm>
-           
-        </ModalWrapper>
-        )
+        <StyledFormElements>
+          <StyledBtnTask onClick={handleSubmit} type="submit">
+            <BtnText>New Task</BtnText>
+            <BtnImage src={'./images/plus-vector.png'} alt="plus" />
+          </StyledBtnTask>
+        </StyledFormElements>
+      </StyledForm>
+    </ModalWrapper>
+  );
 }
 
 export default TodoForm;
