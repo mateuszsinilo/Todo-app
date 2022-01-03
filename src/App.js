@@ -7,10 +7,12 @@ import {
   StyledMiddle,
   StyledButton,
   StyledImg,
-  StyledEmpty
+  StyledEmpty,
+  StyledTaskCounter
 } from './components/Main';
 import { Modal } from './components/Modal';
 import TodoList from './components/TodoList';
+
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -33,14 +35,14 @@ function App() {
 
       <StyledNav>
         <StyledLogo src={'./images/logo-app.svg'} alt="logo" />
-        <StyledHeader>You've got {} tasks to do</StyledHeader>
+        <StyledHeader>You've got <StyledTaskCounter> {tasks.length} tasks </StyledTaskCounter> to do </StyledHeader>
         <StyledEmpty></StyledEmpty>
       </StyledNav>
 
       <TodoList tasks={tasks} />
-
-      <StyledMiddle>Get started and add some tasks!</StyledMiddle>
-
+      {tasks.length === 0 ? <StyledMiddle>Get started and add some tasks!</StyledMiddle> : null }
+      
+      
       {showModal && <Modal save={addTask} />}
 
       <StyledButton onClick={openModal}>

@@ -9,6 +9,12 @@ const ModalWrapper = styled.div`
   border-radius: 10px;
   margin: auto;
   top: 50%;
+
+  @media (max-width: 640px) {
+    width: 400px;
+    height: 160px;
+  }
+
 `;
 const StyledForm = styled.div`
   display: inline-block;
