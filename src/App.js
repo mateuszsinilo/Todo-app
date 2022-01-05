@@ -29,6 +29,11 @@ function App() {
     setShowModal(false);
   };
 
+  const deleteTask = (taskId) => {
+    const newTaskList = tasks.filter(task => task.id !== taskId);
+    setTasks(newTaskList);
+  };
+
   return (
     <>
       <GlobalStyle />
@@ -39,7 +44,7 @@ function App() {
         <StyledEmpty></StyledEmpty>
       </StyledNav>
 
-      <TodoList tasks={tasks} />
+      <TodoList tasks={tasks} deleteTask={deleteTask}/>
       {tasks.length === 0 ? <StyledMiddle>Get started and add some tasks!</StyledMiddle> : null }
       
       

@@ -44,7 +44,7 @@ export const StyledTaskCounter = styled.p`
   padding-left: 5px;
   padding-right: 5px;
 
-  @media (max-width: 640px) {
+  @media (max-width: 760px) {
     font-size: 1.6rem;
     padding: 5px;
     display: flex;
@@ -61,6 +61,11 @@ export const StyledMiddle = styled.p`
   font-size: 1.5rem;
   font-weight: 600;
   padding-top: 20%;
+
+  @media (max-width: 760px) {
+    padding-top: 50%;
+    position: relative;
+  }
 `;
 export const StyledButton = styled.button`
   background: #ff3f3f;

@@ -24,6 +24,13 @@ const StyledTodoBox = styled.div`
   @media (max-width: 640px) {
     width: 400px;
   }
+  @media (min-width: 641px) {
+    width: 600px;
+  }
+  @media (min-width: 920px) {
+    width: 800px;
+  }
+
 `;
 
 const StyledTrashIcon = styled.img`
@@ -31,6 +38,11 @@ const StyledTrashIcon = styled.img`
   height: 16px;
   margin-right:3px;
   cursor: pointer;
+
+  &: hover {
+    opacity: 0.95;
+    transform: scale(1.05);
+  }
 `
 
 const StyledInputDone = styled.input`
@@ -56,22 +68,16 @@ const StyledTodoCategory = styled.p`
     font-size: 0.6rem;
 `;
 
-function TodoList({ tasks, setTasks = [] }) {
-  
-  const deleteTask = () => {
-  
-    setTasks(tasks.filter((task) => task.id !== task.id));
-    
-  };
+function TodoList({ tasks, deleteTask }) {
 
   return (
 
     <>
       {tasks.length > 0 &&
-        tasks.map((task, id) => (
+        tasks.map((task) => (
           <StyledTaskWrapper key={task.id}>
             <StyledTodoBox >
-           <StyledTrashIcon img src={'./images/trash-icon.png'} onClick={deleteTask} /> 
+           <StyledTrashIcon img src={'./images/trash-icon.png'} onClick={() => deleteTask(task.id)} /> 
             <StyledInputDone type="checkbox"/>
               <StyledTodoTask> {task.text}</StyledTodoTask>
               <StyledTodoCategory>{task.category}</StyledTodoCategory>

@@ -12,10 +12,11 @@ const ModalWrapper = styled.div`
 
   @media (max-width: 640px) {
     width: 400px;
-    height: 160px;
+    height: 200px;
   }
 
 `;
+
 const StyledForm = styled.div`
   display: inline-block;
   justify-content: center;
@@ -23,17 +24,34 @@ const StyledForm = styled.div`
   color: #a4a0a0;
 `;
 const StyledFormElements = styled.div`
-  display: flex;
+  display: block;
   padding: 10px;
 `;
 
 const StyledLabel = styled.label`
   padding: 5px;
+  color: #A4A0A0;
+  font-size: 0.8rem;
+  font-weight: bold;
 `;
 const StyledInput = styled.div`
   display: flex;
 `;
+const CustomInput = styled.input`
+  background-color: transparent;
+  border: none; 
+  border-bottom: 1px solid black;
+  font-size: 1rem;
+  padding: 5px;
+  width: 300px;
+  font-weight: bold;
+  outline: none;
 
+  ::placeholder {
+  font-size: 0.8rem;
+  color: #A4A0A0;
+  }
+`
 const StyledBtnTask = styled.button`
   padding: 10px;
   border-radius: 7px;
@@ -47,8 +65,9 @@ const StyledBtnTask = styled.button`
   align-items: center;
   display: flex;
 
-  & hover: {
-    opacity: 0.2;
+  &: hover {
+    opacity: 0.95;
+    transform: scale(1.05);
   }
 `;
 const BtnText = styled.p`
@@ -88,18 +107,24 @@ function TodoForm({ onSubmit }) {
       text: text,
       category: category
     });
+
+    if (text ==='' && category ==='') {
+      alert("Opisz swoje zadanie")
+    } else {
     setText('');
     setCategory('');
     console.log('handleSubmit');
-  };
+  }};
 
   return (
     <ModalWrapper>
       <StyledForm onSubmit={handleSubmit}>
+      
         <StyledFormElements>
-          <StyledLabel> Task </StyledLabel>
+        
+          <StyledLabel> New Task: </StyledLabel>
           <StyledInput>
-            <input
+            <CustomInput
               type="text"
               value={text}
               placeholder="What's your task?"
@@ -108,11 +133,12 @@ function TodoForm({ onSubmit }) {
             />
           </StyledInput>
         </StyledFormElements>
+      
 
         <StyledFormElements>
-          <StyledLabel> Category </StyledLabel>
+          <StyledLabel> Category: </StyledLabel>
           <StyledInput>
-            <input
+            <CustomInput
               type="text"
               value={category}
               placeholder="Add a category for a task"
